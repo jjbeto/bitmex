@@ -19,12 +19,31 @@
 
     <properties>
         <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Used by swagger's generated code -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
+
+        <!-- CSV -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-csv</artifactId>
         </dependency>
 
         <dependency>
@@ -46,7 +65,48 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>2.4.14</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <!-- https://openapi-generator.tech/docs/generators/java/ -->
+                            <inputSpec>${basedir}/src/main/resources/bitmex-swagger.json</inputSpec>
+                            <language>java</language>
+                            <library>resttemplate</library>
+
+                            <invokerPackage>com.jjbeto.bitmex.client</invokerPackage>
+                            <apiPackage>com.jjbeto.bitmex.client.api</apiPackage>
+                            <modelPackage>com.jjbeto.bitmex.client.model</modelPackage>
+
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+
+                            <configOptions>
+                                <sourceFolder>src/gen/java</sourceFolder>
+                                <useBeanValidation>true</useBeanValidation>
+                                <dateLibrary>java8-instant</dateLibrary>
+                                <java8>true</java8>
+                                <bigDecimalAsString>true</bigDecimalAsString>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
+        <resources>
+            <!-- swagger code to be recognised by IDE -->
+            <resource>
+                <directory>target/generated-sources/swagger/src/gen/java</directory>
+            </resource>
+        </resources>
     </build>
 
 </project>

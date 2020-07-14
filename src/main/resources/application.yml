@@ -1,0 +1,10 @@
+app:
+  use-testnet: true
+  testnet:
+    url: https://testnet.bitmex.com/api/v1
+    key:
+    secret:
+  prod:
+    url: https://www.bitmex.com/api/v1
+    key:
+    secret:
