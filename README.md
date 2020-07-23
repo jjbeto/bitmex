@@ -6,7 +6,7 @@ This is a Java client to [Bitmex Exchange](https://www.bitmex.com/register/523k5
 
 A series of Youtube videos walk through each step of the development:
 
-### How to connect to BITMEX using Java, SpringBoot and Swagger!
+### Ep.1 - How to connect to BITMEX using Java, SpringBoot and Swagger!
 [![How to connect to BITMEX using Java, SpringBoot and Swagger!](http://img.youtube.com/vi/pV4rPVmdq_M/0.jpg)](http://www.youtube.com/watch?v=pV4rPVmdq_M)
 
 ## TODO
@@ -15,6 +15,7 @@ A series of Youtube videos walk through each step of the development:
 - [ ] Rate limit & Authentication
 - [ ] Send a trade request and check position
 - [ ] Create a simple strategy and backtest
+- [ ] Devops: Dockerize the entire app and automate build
 
 ## Links
 
