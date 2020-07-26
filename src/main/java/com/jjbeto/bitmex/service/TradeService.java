@@ -82,9 +82,9 @@ public class TradeService {
         return possibleNextTime.isAfter(targetTime) ? targetTime : possibleNextTime;
     }
 
-    public void setLimit(BigDecimal limit) {
-        if (limit != null && limit.intValue() >= 1) {
-            this.limit = limit;
+    public void setLimit(int limit) {
+        if (limit >= 1) {
+            this.limit = BigDecimal.valueOf(limit);
         }
     }
 
