@@ -7,7 +7,7 @@ public class AppProperties {
 
     private String url;
     private String key;
-    private String password;
+    private String secret;
 
     public String getUrl() {
         return url;
@@ -25,12 +25,12 @@ public class AppProperties {
         this.key = key;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSecret() {
+        return secret;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
 }
