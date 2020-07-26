@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static java.math.BigDecimal.TEN;
 import static java.time.ZoneOffset.UTC;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,9 +26,20 @@ public class TradeServiceTest {
         Instant end = LocalDateTime.of(2020, 1, 1, 1, 15).toInstant(UTC);
 
         // set max results per call for test, our result must have 15 quotes (15m -> 1 per minute)
-        tradeService.setLimit(BigDecimal.TEN);
+        tradeService.setLimit(TEN);
         List<TradeBin> history = tradeService.getHistory("XBT", "1m", start, end);
         assertThat(history.size()).isEqualTo(15);
+    }
+
+    @Test
+    public void getTradeBinWithLotsOfResults() {
+        Instant start = LocalDateTime.of(2020, 1, 1, 1, 1).toInstant(UTC);
+        Instant end = LocalDateTime.of(2020, 1, 2, 1, 1).toInstant(UTC);
+
+        // set max results per call for test, our result must have 15 quotes (15m -> 1 per minute)
+        tradeService.setLimit(BigDecimal.valueOf(100));
+        List<TradeBin> history = tradeService.getHistory("XBT", "1m", start, end);
+        assertThat(history.size()).isEqualTo(1441);
     }
 
 }

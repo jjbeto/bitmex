@@ -34,19 +34,19 @@ public class TradeService {
     public List<TradeBin> getHistory(String symbol, String interval, Instant timeFrom, Instant timeTo) {
         logger.info(String.format("[%s/%s] Start loading data for [%s/%s]", symbol, interval, timeFrom, timeTo));
         final List<TradeBin> history = new ArrayList<>();
-        loadHistory(history, symbol, interval, timeFrom, timeTo, timeTo);
+        historyIterator(history, symbol, interval, timeFrom, timeTo, timeTo);
         logger.info(String.format("[%s/%s] Data from [%s] to [%s] is up-to-date.", symbol, interval, timeFrom, timeTo));
         return history;
     }
 
-    private Instant loadHistory(List<TradeBin> history, String asset, String interval, Instant timeFrom, Instant timeTo, Instant targetTime) {
+    private Instant historyIterator(List<TradeBin> history, String asset, String interval, Instant timeFrom, Instant timeTo, Instant targetTime) {
         final Instant lastTime = loadHistory(history, asset, interval, timeFrom, timeTo);
         if (lastTime == null) {
             return null;
         }
 
         final Instant nextTime = getNextTime(lastTime, targetTime);
-        return loadHistory(history, asset, interval, lastTime, nextTime, targetTime);
+        return historyIterator(history, asset, interval, lastTime, nextTime, targetTime);
     }
 
     private Instant loadHistory(List<TradeBin> history, String symbol, String interval, Instant startTime, Instant endTime) {
